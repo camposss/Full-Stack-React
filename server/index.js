@@ -9,7 +9,7 @@ const app = express();
 
 
 app.get( '/', (req,res) => {
-    res.send({hi:'there'});
+    res.send({bye:'we are changing the code to redeploy'});
 });
 
 //look at the underlying 'environment' and see if Heroku has found a port for us to use
