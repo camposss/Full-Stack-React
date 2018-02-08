@@ -8,7 +8,16 @@ module.exports = (app) =>{
         passport.authenticate('google', {
             scope: ['profile', 'email']
         }));
+    app.get('/api/logout', (req,res)=>{
+        //kills the cookie associated with your account
+        req.logout();
+        res.send(req.user);
+    });
+
     app.get('/auth/google/callback', passport.authenticate('google'));
+    app.get('/api/current_user', (req,res)=>{
+        res.send(req.user);
+    })
 };
 //this is a route handler. this is a get request HTTP request
 // if anyone accesses the root route '/'
@@ -19,6 +28,9 @@ module.exports = (app) =>{
 // app.get( '/', (req,res) => {
 //     res.send({broken:'we want to this again without breaking it'});
 // });
+
+
+
 
 
 
