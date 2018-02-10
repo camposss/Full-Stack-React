@@ -25,19 +25,20 @@ passport.use(
         clientSecret: keys.googleClientSecret,
         callbackURL: '/auth/google/callback',
         proxy: true
-    }, (accessToken, refreshToken, profile, done)=>{
+    },
+        async (accessToken, refreshToken, profile, done)=>{
         //mongoose queries checking if this exists which returns a promise
 
-        User.findOne({googleId: profile.id}).then((existingUser)=>{
-            if (existingUser){
-                // we already have a record with given id
-                //first parameter is error and second is the first parameter
-                done(null, existingUser );
-            }else{
-                //creating a new instance and calling the .save mongoose method to save it to the database
-                //.then returns the newly created from the database (proof that it actually uploaded)
-                new User({googleId: profile.id}).save().then(user=> done(null,user));
-            }
-        });
+        const existingUser= await User.findOne({googleId: profile.id});
+        if (existingUser){
+            // we already have a record with given id
+            //first parameter is error and second is the first parameter
+            return done(null, existingUser );
+        }
+        //creating a new instance and calling the .save mongoose method to save it to the database
+        //.then returns the newly created from the database (proof that it actually uploaded)
+        const newUser =await new User({googleId: profile.id}).save();
+        done(null, newUser);
+
     })
 );
