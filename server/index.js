@@ -5,6 +5,7 @@ const passport = require('passport');
 const bodyParser= require('body-parser');
 //must define the schema in /models/user before creating new instances in passport
 require('./models/user');
+require ('./models/survey');
 require('./services/passport');
 const keys=require('./config/keys');
 const app = express();
@@ -28,6 +29,7 @@ mongoose.connect(keys.mongoURI);
 //in authRoutes.js app is being passed in as a parameter to the exported function
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if(process.env.NODE_ENV==='production'){
     //express will serve up production asssets like main.js or main.css
