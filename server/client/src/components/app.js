@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Landing from './landing';
 import Dashboard from './dashboard';
 import Header from './header';
-import SurveyNew from './surveynew';
+import SurveyNew from './surveys/surveynew';
 import {connect} from 'react-redux';
 import {fetchUser} from '../actions';
 
